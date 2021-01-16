@@ -1,1 +1,40 @@
-<p>species works!</p>
+<div class="card">
+  <div class="card-body">
+    <table class="table table-borderless table-hover w-100" aria-describedby="" *ngIf="species">
+      <thead class="border-bottom">
+        <tr>
+          <th class="py-4" scope="col"></th>
+          <th class="py-4" scope="col">Name</th>
+          <th class="py-4" scope="col">Classification</th>
+          <th class="py-4" scope="col">Designation</th>
+          <th class="py-4" scope="col">Average Height</th>
+          <th class="py-4" scope="col">Average Lifespan</th>
+          <th class="py-4" scope="col">Skin Color</th>
+          <th class="py-4" scope="col">Eye Color</th>
+          <th class="py-4" scope="col">Hair Color</th>
+          <th class="py-4" scope="col">Language</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of species">
+          <th scope="row" class="py-4"><input type="checkbox" id=""></th>
+          <td class="py-4">{{item.name | titlecase}}</td>
+          <td class="py-4">{{item.classification | titlecase}}</td>
+          <td class="py-4">{{item.designation | titlecase}}</td>
+          <td class="py-4">{{item.average_height | titlecase}}
+            <span *ngIf="item.average_height.toLowerCase() !== 'n/a'">{{'cm'}}</span>
+          </td>
+          <td class="py-4">{{item.average_lifespan | titlecase}}
+            <span *ngIf="isNumber(item.average_lifespan)">{{'years'}}</span>
+          </td>
+          <td class="py-4">{{item.skin_colors | titlecase}}</td>
+          <td class="py-4">{{item.eye_colors | titlecase}}</td>
+          <td class="py-4">{{item.hair_colors | titlecase}}</td>
+          <td class="py-4">{{item.language | titlecase}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <app-spinner *ngIf="!species || !species.length"></app-spinner>
+  </div>
+</div>
+
