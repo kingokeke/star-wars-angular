@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Species } from '../interfaces/species.interface';
-import { DataService } from '../data.service';
+import { DataService } from 'src/app/data.service';
+import { Species } from 'src/app/interfaces/species.interface';
 
 @Component({
   selector: 'app-species',
