@@ -7,16 +7,12 @@ import { SpeciesComponent } from './species/species.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
-  {
-    path: 'dashboard', component: DashboardComponent, children: [
-      { path: '', component: FilmsComponent },
-      { path: 'starships', component: LoginComponent },
-      { path: 'people', component: FilmsComponent },
-      { path: 'vehicles', component: LoginComponent },
-      { path: 'species', component: SpeciesComponent },
-      { path: '**', redirectTo: 'dashboard' }
-    ]
-  },
+  { path: 'dashboard', component: DashboardComponent, children: [{ path: '', component: FilmsComponent }] },
+  { path: 'starships', component: DashboardComponent, children: [{ path: '', component: FilmsComponent }] },
+  { path: 'people', component: DashboardComponent, children: [{ path: '', component: FilmsComponent }] },
+  { path: 'vehicles', component: DashboardComponent, children: [{ path: '', component: FilmsComponent }] },
+  { path: 'species', component: DashboardComponent, children: [{ path: '', component: SpeciesComponent }] },
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({

@@ -14,7 +14,6 @@ import { SpinnerComponent } from './spinner/spinner.component';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { DashboardRoutingModule } from './dashboard/dashboard-routing.module';
 
 @NgModule({
   declarations: [
@@ -33,7 +32,6 @@ import { DashboardRoutingModule } from './dashboard/dashboard-routing.module';
     LoginModule,
     CommonModule,
     HttpClientModule,
-    DashboardRoutingModule,
     RouterModule,
   ],
   providers: [],
