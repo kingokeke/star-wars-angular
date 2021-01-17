@@ -17,6 +17,7 @@ import { VehiclesComponent } from './views/vehicles/vehicles.component';
 import { PeopleComponent } from './views/people/people.component';
 import { StarshipsComponent } from './views/starships/starships.component';
 import { DashboardOverviewComponent } from './views/dashboard-overview/dashboard-overview.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { DashboardOverviewComponent } from './views/dashboard-overview/dashboard
     CommonModule,
     HttpClientModule,
     RouterModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

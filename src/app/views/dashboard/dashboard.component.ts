@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/data.service';
+import { PAGES } from '../../enums/pages.enum';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,12 +18,15 @@ export class DashboardComponent implements OnInit {
     { name: 'Vehicles', url: '/vehicles', icon: 'truck-monster' },
     { name: 'Species', url: '/species', icon: 'dragon' },
   ];
+  currentViewPlaceholder: any = '';
+  showPagination = false;
   showYearDropdown = false;
   totalCount = 0;
   currentStart = 0;
   currentEnd = 0;
   currentPage = 1;
   data: any[] = [];
+  searchTerm = '';
 
   constructor(
     private readonly router: Router, private readonly dataService: DataService) { }
@@ -50,8 +54,10 @@ export class DashboardComponent implements OnInit {
               this.setPagination('current');
             },
             error => console.log(error)
-          );
-        }
+            );
+          }
+        this.showPagination = !this.router.url.includes(PAGES.DASHBOARD);
+        this.getCurrentViewPlaceholder();
       }
     );
 
@@ -104,5 +110,20 @@ export class DashboardComponent implements OnInit {
     this.currentStart = 0;
     this.currentEnd = 0;
     this.totalCount = 0;
+  }
+
+  getCurrentViewPlaceholder(): void {
+    this.currentViewPlaceholder = this.router.url.split('/').pop();
+  }
+
+  searchRecords(): void {
+    this.dataService.searchRecords(this.searchTerm).subscribe(
+      response => {
+        this.dataService.setData(response);
+        this.setPagination('current');
+        this.searchTerm = '';
+      },
+      error => console.log(error)
+    );
   }
 }

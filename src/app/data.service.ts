@@ -59,29 +59,29 @@ export class DataService {
     this.previousPage.next(url);
   }
 
-  getData(page?: number): Observable<any> {
+  getData(page?: number, searchTerm?: string): Observable<any> {
     const currentUrl = this.router.url;
     let result: Observable<any> = new Observable();
     this.resetData();
 
     if (currentUrl.includes(PAGES.SPECIES)) {
-      result = this.getSpecies(page);
+      result = this.getSpecies(page, searchTerm);
     }
 
     if (currentUrl.includes(PAGES.VEHICLES)) {
-      result = this.getVehicles(page);
+      result = this.getVehicles(page, searchTerm);
     }
 
     if (currentUrl.includes(PAGES.PEOPLE)) {
-      result = this.getPeople(page);
+      result = this.getPeople(page, searchTerm);
     }
 
     if (currentUrl.includes(PAGES.STARSHIPS)) {
-      result = this.getStarships(page);
+      result = this.getStarships(page, searchTerm);
     }
 
     if (currentUrl.includes(PAGES.DASHBOARD)) {
-      result = this.getFilms(page);
+      result = this.getFilms(page, searchTerm);
     }
 
     return result;
@@ -134,5 +134,9 @@ export class DataService {
     const url = this.nextPage.value;
     this.resetData();
     return this.http.get(url);
+  }
+
+  searchRecords(searchItem: string): Observable<any> {
+    return this.getData(1, searchItem);
   }
 }
