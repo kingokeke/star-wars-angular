@@ -1,1 +1,46 @@
-<p>vehicles works!</p>
+<div class="card">
+  <div class="card-body">
+    <table class="table table-borderless table-hover w-100" aria-describedby="" *ngIf="vehicles && vehicles.length">
+      <thead class="border-bottom">
+        <tr>
+          <th class="py-4" scope="col"></th>
+          <th class="py-4" scope="col">Name</th>
+          <th class="py-4" scope="col">Model</th>
+          <th class="py-4" scope="col">Manufacturer</th>
+          <th class="py-4" scope="col">Length</th>
+          <th class="py-4" scope="col">Max Speed</th>
+          <th class="py-4" scope="col">Crew Members</th>
+          <th class="py-4" scope="col">Passenger Capacity</th>
+          <th class="py-4" scope="col">Cargo Capacity</th>
+          <th class="py-4" scope="col">Vehicle Class</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of vehicles">
+          <th scope="row" class="py-4"><input type="checkbox" id="" /></th>
+          <td class="py-4">{{ item.name | titlecase }}</td>
+          <td class="py-4">{{ item.model | titlecase }}</td>
+          <td class="py-4">{{ item.manufacturer | titlecase }}</td>
+          <td class="py-4">
+            {{ item.length | titlecase }}
+            <span *ngIf="isNumber(item.length)">{{ "m" }}</span>
+          </td>
+          <td class="py-4">
+            {{ item.max_atmosphering_speed | titlecase }}
+            <span *ngIf="isNumber(item.max_atmosphering_speed)">{{
+              "km/s"
+              }}</span>
+          </td>
+          <td class="py-4">{{ item.crew | titlecase }}</td>
+          <td class="py-4">{{ item.passengers | titlecase }}</td>
+          <td class="py-4">
+            {{ item.cargo_capacity | titlecase }}
+            <span *ngIf="isNumber(item.cargo_capacity)">{{ "tonnes" }}</span>
+          </td>
+          <td class="py-4">{{ item.vehicle_class | titlecase }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <app-spinner *ngIf="!vehicles || !vehicles.length"></app-spinner>
+  </div>
+</div>
