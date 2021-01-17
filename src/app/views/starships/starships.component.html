@@ -1,1 +1,49 @@
-<p>starships works!</p>
+<div class="card">
+  <div class="card-body">
+    <table class="table table-borderless table-hover w-100" aria-describedby="" *ngIf="starships && starships.length">
+      <thead class="border-bottom">
+        <tr>
+          <th class="py-4" scope="col"></th>
+          <th class="py-4" scope="col">Name</th>
+          <th class="py-4" scope="col">Model</th>
+          <th class="py-4" scope="col">Class</th>
+          <th class="py-4" scope="col">Cost (in GC)</th>
+          <th class="py-4" scope="col">Passengers</th>
+          <th class="py-4" scope="col">Length</th>
+          <th class="py-4" scope="col">Crew</th>
+          <th class="py-4" scope="col">Cargo Capacity</th>
+          <th class="py-4" scope="col">Manufacturer</th>
+          <th class="py-4" scope="col">Max Speed</th>
+          <th class="py-4" scope="col">Hyperdrive</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of starships">
+          <th scope="row" class="py-4"><input type="checkbox" id="" /></th>
+          <td class="py-4">{{ item.name | titlecase }}</td>
+          <td class="py-4">{{ item.model | titlecase }}</td>
+          <td class="py-4">{{ item.starship_class | titlecase }}</td>
+          <td class="py-4">
+            {{ item.cost_in_credits | titlecase }}
+            <span *ngIf="isNumber(item.cost_in_credits)">{{ "GC" }}</span>
+          </td>
+          <td class="py-4">{{ item.passengers | titlecase }}</td>
+          <td class="py-4"> {{ item.length | titlecase }}
+            <span *ngIf="isNumber(item.length)">{{ "m" }}</span>
+          </td>
+          <td class="py-4">{{ item.crew | titlecase }}</td>
+          <td class="py-4"> {{ item.cargo_capacity | titlecase }}
+            <span *ngIf="isNumber(item.cargo_capacity)">{{ "tonnes" }}</span>
+          </td>
+          <td class="py-4">{{ item.manufacturer | titlecase }}</td>
+          <td class="py-4">
+            {{ item.max_atmosphering_speed | titlecase }}
+            <span *ngIf="isNumber(item.max_atmosphering_speed)">{{ "km/s" }}</span>
+          </td>
+          <td class="py-4">{{ item.hyperdrive_rating | titlecase }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <app-spinner *ngIf="!starships || !starships.length"></app-spinner>
+  </div>
+</div>
