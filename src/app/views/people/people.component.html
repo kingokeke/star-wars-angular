@@ -1,1 +1,44 @@
-<p>people works!</p>
+<div class="card">
+  <div class="card-body">
+    <table class="table table-borderless table-hover w-100" aria-describedby="" *ngIf="people && people.length">
+      <thead class="border-bottom">
+        <tr>
+          <th class="py-4" scope="col"></th>
+          <th class="py-4" scope="col">Name</th>
+          <th class="py-4" scope="col">Birth Year</th>
+          <th class="py-4" scope="col">Gender</th>
+          <th class="py-4" scope="col">Eye Color</th>
+          <th class="py-4" scope="col">Hair Color</th>
+          <th class="py-4" scope="col">Height</th>
+          <th class="py-4" scope="col">Mass</th>
+          <th class="py-4" scope="col">Skin Color</th>
+          <th class="py-4" scope="col">Created</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of people">
+          <th scope="row" class="py-4"><input type="checkbox" id="" /></th>
+          <td class="">
+            <span class="photo d-inline-block mr-4">
+              <img [src]="demoPersonUrl" alt="photo" class="img-fluid rounded-circle" />
+            </span>
+            <span class="py-4 font-weight-bold">{{ item.name | titlecase }}</span>
+          </td>
+          <td class="py-4">{{ item.birth_year | titlecase }}</td>
+          <td class="py-4">{{ item.gender | titlecase }}</td>
+          <td class="py-4">{{ item.eye_color | titlecase }}</td>
+          <td class="py-4">{{ item.hair_color | titlecase }}</td>
+          <td class="py-4">{{ item.height | titlecase }}
+            <span *ngIf="isNumber(item.height)">{{ "cm" }}</span>
+          </td>
+          <td class="py-4"> {{ item.mass | titlecase }}
+            <span *ngIf="isNumber(item.mass)">{{ "kg" }}</span>
+          </td>
+          <td class="py-4">{{ item.skin_color | titlecase }}</td>
+          <td class="py-4">{{ item.created | date: "medium" }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <app-spinner *ngIf="!people || !people.length"></app-spinner>
+  </div>
+</div>
