@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,10 +12,12 @@ export class LoginComponent implements OnInit {
   moonUrl = 'assets/images/moon.svg';
   currentYear = new Date().getFullYear();
   languages = ['English', 'French', 'Spanish'];
+  passwordRegex = '^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])[a-zA-Z0-9]{8,}$';
+  emailRegex = '^([a-zA-Z0-9._]+)@([a-zA-Z0-9._-]+)[.]{1}([a-zA-Z]{2,})$';
 
   loginForm = new FormGroup({
-    email: new FormControl(''),
-    password: new FormControl('')
+    email: new FormControl('', [Validators.required, Validators.pattern(this.emailRegex)]),
+    password: new FormControl('', [Validators.required, Validators.pattern(this.passwordRegex)])
   });
 
   constructor(private readonly router: Router) { }
@@ -31,5 +33,9 @@ export class LoginComponent implements OnInit {
   }
 
   navigateToTermsAndConditionsPage(): void {
+  }
+
+  markAsTouched(control: string): void {
+    this.loginForm.controls[control].markAsTouched();
   }
 }
