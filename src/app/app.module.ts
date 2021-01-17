@@ -1,19 +1,22 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { LoginModule } from './login/login.module';
-import { DashboardOverviewComponent } from './components/dashboard-overview/dashboard-overview.component';
-import { NavLinkComponent } from './components/nav-link/nav-link.component';
-import { OverviewCardsComponent } from './components/overview-cards/overview-cards.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { FilmsComponent } from './films/films.component';
-import { SpeciesComponent } from './species/species.component';
-import { SpinnerComponent } from './spinner/spinner.component';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { LoginModule } from './views/login/login.module';
+import { NavLinkComponent } from './components/nav-link/nav-link.component';
+import { OverviewCardsComponent } from './components/overview-cards/overview-cards.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
+import { DashboardComponent } from './views/dashboard/dashboard.component';
+import { FilmsComponent } from './views/films/films.component';
+import { SpeciesComponent } from './views/species/species.component';
+import { VehiclesComponent } from './views/vehicles/vehicles.component';
+import { PeopleComponent } from './views/people/people.component';
+import { StarshipsComponent } from './views/starships/starships.component';
+import { DashboardOverviewComponent } from './views/dashboard-overview/dashboard-overview.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,10 @@ import { RouterModule } from '@angular/router';
     OverviewCardsComponent,
     DashboardOverviewComponent,
     SpeciesComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    VehiclesComponent,
+    PeopleComponent,
+    StarshipsComponent
   ],
   imports: [
     BrowserModule,
