@@ -1,5 +1,5 @@
 <div class="row">
-  <nav class="bg-transparent sidebar border-right" aria-label="">
+  <nav class="bg-transparent sidebar border-right col-auto" aria-label="">
     <div class="sidebar-sticky">
       <div class="logo d-flex justify-content-center my-5 cursor-pointer" (click)="navigateToDashboard()">
         <img [src]="logoUrl" alt="logo" class="w-50">
@@ -10,7 +10,7 @@
     </div>
   </nav>
 
-  <main role="main" class="flex-grow-1">
+  <main role="main" class="col">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center border-bottom py-2">
       <div class="dashboard-title px-4 d-flex align-items-center">
         <h2 class="h5 p-0 m-0">Dashboard</h2>
@@ -67,10 +67,10 @@
           </div>
         </div>
       </div>
-      </div>
-      
-      <div class="col w-100 content-area p-5">
-        <router-outlet></router-outlet>
-      </div>
+    </div>
+
+    <div class="row content-area p-5">
+      <router-outlet></router-outlet>
+    </div>
   </main>
 </div>
