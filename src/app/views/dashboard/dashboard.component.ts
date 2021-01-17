@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/data.service';
 import { PAGES } from '../../enums/pages.enum';
+import { PAGINATION } from '../../enums/pagination.enum';
 
 @Component({
   selector: 'app-dashboard',
@@ -27,47 +28,14 @@ export class DashboardComponent implements OnInit {
   currentPage = 1;
   data: any[] = [];
   searchTerm = '';
+  paginationAction: PAGINATION = PAGINATION.CURRENT;
 
   constructor(
     private readonly router: Router, private readonly dataService: DataService) { }
 
   ngOnInit(): void {
-    this.dataService.getData().subscribe(
-      response => {
-        this.dataService.setData(response);
-        this.setPagination('current');
-      },
-      error => console.log(error)
-    );
-
-    this.dataService.getCount().subscribe(
-      response => this.totalCount = response,
-      error => console.log(error)
-    );
-
-    this.dataService.didViewLoad().subscribe(
-      setPagination => {
-        if (setPagination) {
-          this.dataService.getCount().subscribe(
-            response => {
-              this.totalCount = response;
-              this.setPagination('current');
-            },
-            error => console.log(error)
-            );
-          }
-        this.showPagination = !this.router.url.includes(PAGES.DASHBOARD);
-        this.getCurrentViewPlaceholder();
-      }
-    );
-
-    this.dataService.didViewUnload().subscribe(
-      resetPagination => {
-        if (resetPagination) {
-          this.resetPagination();
-        }
-      }
-    );
+    this.dataService.retrieveAndSetData();
+    this.setTotalCount();
   }
 
   toggleYearDropdown(): void {
@@ -79,37 +47,28 @@ export class DashboardComponent implements OnInit {
   }
 
   loadPreviousPage(): void {
-    this.resetPagination();
+    this.paginationAction = PAGINATION.PREVIOUS;
     this.dataService.loadPreviousPage().subscribe(
-      response => {
-        this.dataService.setData(response);
-        this.setPagination('previous');
-      },
+      response => this.dataService.setData(response),
       error => console.log(error)
     );
   }
 
   loadNextPage(): void {
-    this.resetPagination();
+    this.paginationAction = PAGINATION.NEXT;
     this.dataService.loadNextPage().subscribe(
-      response => {
-        this.dataService.setData(response);
-        this.setPagination('next');
-      },
+      response => this.dataService.setData(response),
       error => console.log(error)
     );
   }
 
-  setPagination(action: string): void {
-    action === 'next' ? this.currentPage += 1 : action === 'previous' ? this.currentPage -= 1 : this.currentPage = 1;
+  setPagination(action: PAGINATION): void {
+    if (this.totalCount) {
+      action === PAGINATION.NEXT ? this.currentPage += 1 : action === PAGINATION.PREVIOUS ? this.currentPage -= 1 : this.currentPage = 1;
+    }
     this.currentEnd = Math.min(this.totalCount, (this.currentPage * 10));
     this.currentStart = this.currentEnd ? ((this.currentPage - 1) * 10) + 1 : 0;
-  }
-
-  resetPagination(): void {
-    this.currentStart = 0;
-    this.currentEnd = 0;
-    this.totalCount = 0;
+    this.showPagination = !this.router.url.includes(PAGES.DASHBOARD);
   }
 
   getCurrentViewPlaceholder(): void {
@@ -117,11 +76,15 @@ export class DashboardComponent implements OnInit {
   }
 
   searchRecords(): void {
-    this.dataService.searchRecords(this.searchTerm).subscribe(
+    this.dataService.retrieveAndSetData(1, this.searchTerm);
+  }
+
+  setTotalCount(): void {
+    this.dataService.getCount().subscribe(
       response => {
-        this.dataService.setData(response);
-        this.setPagination('current');
-        this.searchTerm = '';
+        this.totalCount = response;
+        this.setPagination(this.paginationAction);
+        this.getCurrentViewPlaceholder();
       },
       error => console.log(error)
     );
