@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy, HostBinding } from '@angular/core';
 import { DataService } from 'src/app/data.service';
 import { Film } from 'src/app/interfaces/film.interface';
-
 @Component({
   selector: 'app-films',
   templateUrl: './films.component.html',
@@ -9,6 +8,8 @@ import { Film } from 'src/app/interfaces/film.interface';
 })
 export class FilmsComponent implements OnInit, OnDestroy {
   @HostBinding('class') class = 'col';
+  isLoading = true;
+  showData = false;
 
   films: Film[] = [];
   filmLogoUrl = 'assets/images/film.svg';
@@ -18,15 +19,17 @@ export class FilmsComponent implements OnInit, OnDestroy {
   constructor(private readonly dataService: DataService) { }
 
   ngOnInit(): void {
-    this.dataService.getData().subscribe(
-      response => this.dataService.setData(response),
-      error => console.log(error)
-    );
+    this.dataService.retrieveAndSetData(1, '');
 
     this.dataService.getItems().subscribe(
       response => {
+        if (response === null || response.length === 0) {
+          return;
+        }
         this.films = response;
+        this.showData = true;
         this.dataService.viewLoaded();
+        this.isLoading = false;
       },
       error => console.log(error)
     );
@@ -36,9 +39,4 @@ export class FilmsComponent implements OnInit, OnDestroy {
     this.films = [];
     this.dataService.viewUnloaded();
   }
-
-  isNumber(item: string): boolean {
-    return !!parseInt(item, 10);
-  }
-
 }

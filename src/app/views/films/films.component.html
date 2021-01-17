@@ -1,6 +1,6 @@
 <div class="card">
   <div class="card-body">
-    <table class="table table-borderless table-hover w-100" aria-describedby="" *ngIf="films && films.length">
+    <table class="table table-borderless table-hover w-100" aria-describedby="" *ngIf="!isLoading && showData">
       <thead class="border-bottom">
         <tr>
           <th class="py-4" scope="col"></th>
@@ -38,6 +38,9 @@
         </tr>
       </tbody>
     </table>
-    <app-spinner *ngIf="!films || !films.length"></app-spinner>
+    <div class="d-flex justify-content-center align-items-center" *ngIf="!isLoading && !showData">
+      <p class="h3">No data</p>
+    </div>
+    <app-spinner *ngIf="isLoading"></app-spinner>
   </div>
 </div>
