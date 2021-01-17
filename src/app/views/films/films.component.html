@@ -1,1 +1,43 @@
-<h1>films works!</h1>
+<div class="card">
+  <div class="card-body">
+    <table class="table table-borderless table-hover w-100" aria-describedby="" *ngIf="films && films.length">
+      <thead class="border-bottom">
+        <tr>
+          <th class="py-4" scope="col"></th>
+          <th class="py-4" scope="col">Film Title</th>
+          <th class="py-4" scope="col">Director</th>
+          <th class="py-4" scope="col">Producer</th>
+          <th class="py-4" scope="col">Release Date</th>
+          <th class="py-4" scope="col">Episode ID</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of films">
+          <th scope="row" class="py-4"><input type="checkbox" id="" /></th>
+          <td class="">
+            <div class="photo d-inline-block mr-4">
+              <img [src]="filmLogoUrl" alt="photo" class="img-fluid p-2 film-logo" />
+            </div>
+            <span class="py-4">{{ item.title | titlecase }}</span>
+          </td>
+          <td class="">
+            <span class="photo d-inline-block mr-4">
+              <img [src]="demoDirectorUrl" alt="photo" class="img-fluid rounded-circle" />
+            </span>
+            <span class="py-4">{{ item.director | titlecase }}</span>
+          </td>
+          <td class="">
+            <span class="photo d-inline-block mr-4">
+              <img [src]="demoProducerUrl" alt="photo" class="img-fluid rounded-circle" />
+            </span>
+            <span class="py-4">{{ item.producer | titlecase }}</span>
+          </td>
+          <td class="py-4">{{ item.release_date | titlecase }}
+          </td>
+          <td class="py-4">{{ item.episode_id }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <app-spinner *ngIf="!films || !films.length"></app-spinner>
+  </div>
+</div>
