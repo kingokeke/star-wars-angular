@@ -14,8 +14,6 @@ export class DataService {
   currentPage: BehaviorSubject<number> = new BehaviorSubject(1);
   nextPage: BehaviorSubject<string> = new BehaviorSubject('');
   previousPage: BehaviorSubject<string> = new BehaviorSubject('');
-  resetPagination: BehaviorSubject<any> = new BehaviorSubject(false);
-  setPagination: BehaviorSubject<any> = new BehaviorSubject(false);
 
   constructor(private readonly http: HttpClient, private readonly router: Router) { }
 
@@ -33,22 +31,6 @@ export class DataService {
 
   getCount(): Observable<number> {
     return this.totalCount.asObservable();
-  }
-
-  viewLoaded(): void {
-    this.setPagination.next(true);
-  }
-
-  didViewLoad(): Observable<boolean> {
-    return this.setPagination.asObservable();
-  }
-
-  viewUnloaded(): void {
-    this.resetPagination.next(true);
-  }
-
-  didViewUnload(): Observable<boolean> {
-    return this.resetPagination.asObservable();
   }
 
   setNextPage(url: string): void {
@@ -138,5 +120,12 @@ export class DataService {
 
   searchRecords(searchItem: string): Observable<any> {
     return this.getData(1, searchItem);
+  }
+
+  retrieveAndSetData(page = 1, searchTerm = ''): void {
+    this.getData(page, searchTerm).subscribe(
+      response => this.setData(response),
+      error => console.log(error)
+    );
   }
 }
