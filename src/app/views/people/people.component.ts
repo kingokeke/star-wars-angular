@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostBinding } from '@angular/core';
 import { DataService } from 'src/app/data.service';
 import { Person } from 'src/app/interfaces/person.interface';
 
@@ -8,6 +8,7 @@ import { Person } from 'src/app/interfaces/person.interface';
   styleUrls: ['./people.component.scss']
 })
 export class PeopleComponent implements OnInit, OnDestroy {
+  @HostBinding('class') class = 'col';
   people: Person[] = [];
   demoPersonUrl = 'assets/images/person.jpg';
 

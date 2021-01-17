@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostBinding } from '@angular/core';
 import { DataService } from 'src/app/data.service';
 import { Vehicle } from 'src/app/interfaces/vehicle.interface';
 
@@ -8,6 +8,7 @@ import { Vehicle } from 'src/app/interfaces/vehicle.interface';
   styleUrls: ['./vehicles.component.scss']
 })
 export class VehiclesComponent implements OnInit, OnDestroy {
+  @HostBinding('class') class = 'col';
   vehicles: Vehicle[] = [];
 
   constructor(private readonly dataService: DataService) { }

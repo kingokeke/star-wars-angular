@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
 import { DataService } from 'src/app/data.service';
 import { Species } from 'src/app/interfaces/species.interface';
 
@@ -8,6 +8,7 @@ import { Species } from 'src/app/interfaces/species.interface';
   styleUrls: ['./species.component.scss']
 })
 export class SpeciesComponent implements OnInit, OnDestroy {
+  @HostBinding('class') class = 'col';
   species: Species[] = [];
 
   constructor(private readonly dataService: DataService) { }

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostBinding } from '@angular/core';
 import { DataService } from 'src/app/data.service';
 import { Starship } from '../../interfaces/starship.interface';
 
@@ -8,7 +8,7 @@ import { Starship } from '../../interfaces/starship.interface';
   styleUrls: ['./starships.component.scss']
 })
 export class StarshipsComponent implements OnInit, OnDestroy {
-
+  @HostBinding('class') class = 'col';
   starships: Starship[] = [];
 
   constructor(private readonly dataService: DataService) { }
