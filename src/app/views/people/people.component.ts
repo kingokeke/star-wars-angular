@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, HostBinding } from '@angular/core';
 import { DataService } from 'src/app/data.service';
 import { Person } from 'src/app/interfaces/person.interface';
+import { isNumber } from '../../utils/isNumber.util';
 
 @Component({
   selector: 'app-people',
@@ -11,32 +12,20 @@ export class PeopleComponent implements OnInit, OnDestroy {
   @HostBinding('class') class = 'col';
   people: Person[] = [];
   demoPersonUrl = 'assets/images/person.jpg';
+  isNumber = isNumber;
 
   constructor(private readonly dataService: DataService) { }
 
   ngOnInit(): void {
-    this.dataService.getData().subscribe(
-      response => this.dataService.setData(response),
-      error => console.log(error)
-    );
+    this.dataService.retrieveAndSetData();
 
     this.dataService.getItems().subscribe(
-      response => {
-        this.people = response;
-        this.dataService.viewLoaded();
-      },
+      response => this.people = response,
       error => console.log(error)
     );
   }
 
   ngOnDestroy(): void {
     this.people = [];
-    this.dataService.viewUnloaded();
   }
-
-  isNumber(item: string): boolean {
-    return !!parseInt(item, 10);
-  }
-
-
 }

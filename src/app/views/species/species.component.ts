@@ -1,6 +1,7 @@
 import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
 import { DataService } from 'src/app/data.service';
 import { Species } from 'src/app/interfaces/species.interface';
+import { isNumber } from '../../utils/isNumber.util';
 
 @Component({
   selector: 'app-species',
@@ -10,30 +11,20 @@ import { Species } from 'src/app/interfaces/species.interface';
 export class SpeciesComponent implements OnInit, OnDestroy {
   @HostBinding('class') class = 'col';
   species: Species[] = [];
+  isNumber = isNumber;
 
   constructor(private readonly dataService: DataService) { }
 
   ngOnInit(): void {
-    this.dataService.getData().subscribe(
-      response => this.dataService.setData(response),
-      error => console.log(error)
-    );
+    this.dataService.retrieveAndSetData();
 
     this.dataService.getItems().subscribe(
-      response => {
-        this.species = response;
-        this.dataService.viewLoaded();
-      },
+      response => this.species = response,
       error => console.log(error)
     );
   }
 
   ngOnDestroy(): void {
     this.species = [];
-    this.dataService.viewUnloaded();
-  }
-
-  isNumber(item: string): boolean {
-    return !!parseInt(item, 10);
   }
 }

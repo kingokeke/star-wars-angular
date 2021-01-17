@@ -19,24 +19,15 @@ export class FilmsComponent implements OnInit, OnDestroy {
   constructor(private readonly dataService: DataService) { }
 
   ngOnInit(): void {
-    this.dataService.retrieveAndSetData(1, '');
+    this.dataService.retrieveAndSetData();
 
     this.dataService.getItems().subscribe(
-      response => {
-        if (response === null || response.length === 0) {
-          return;
-        }
-        this.films = response;
-        this.showData = true;
-        this.dataService.viewLoaded();
-        this.isLoading = false;
-      },
+      response => this.films = response,
       error => console.log(error)
     );
   }
 
   ngOnDestroy(): void {
     this.films = [];
-    this.dataService.viewUnloaded();
   }
 }
