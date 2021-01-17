@@ -16,12 +16,15 @@
         <h2 class="h5 p-0 m-0">{{currentViewPlaceholder | titlecase}}</h2>
       </div>
       <div class="notifications-section d-flex align-items-center">
-        <div class="comments">
+        <div class="comments cursor-pointer">
           <i class="far fa-comments icon mx-3 mt-2"></i>
         </div>
-        <div class="notifications">
+        <div class="notifications cursor-pointer">
           <i class="far fa-bell icon mx-3 mt-2"></i>
           <span class="badge badge-pill badge-danger new-notifications">&nbsp;</span>
+        </div>
+        <div class="logout cursor-pointer" (click)="logout()">
+          <i class="fas fa-sign-out-alt icon mx-3 mt-2"></i>
         </div>
         <div class="user">
           <img [src]="userImageUrl" alt="" class="img-fluid user-image mx-5">

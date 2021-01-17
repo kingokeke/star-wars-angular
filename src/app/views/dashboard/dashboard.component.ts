@@ -89,4 +89,8 @@ export class DashboardComponent implements OnInit {
       error => console.log(error)
     );
   }
+
+  logout(): void {
+    this.router.navigate(['']);
+  }
 }
