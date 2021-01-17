@@ -34,11 +34,11 @@ export class DataService {
   }
 
   setNextPage(url: string): void {
-    this.nextPage.next(url);
+    this.nextPage.next(this.upgradeToHttps(url));
   }
 
   setPreviousPage(url: string): void {
-    this.previousPage.next(url);
+    this.previousPage.next(this.upgradeToHttps(url));
   }
 
   getData(page?: number, searchTerm?: string): Observable<any> {
@@ -127,5 +127,9 @@ export class DataService {
       response => this.setData(response),
       error => console.log(error)
     );
+  }
+
+  upgradeToHttps(url: string): string {
+    return url?.includes('https://') ? url : url?.replace('http', 'https');
   }
 }
