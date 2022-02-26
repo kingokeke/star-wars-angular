@@ -1,4 +1,4 @@
-# Star Wars FrontEnd Challenge - Max.NG
+# Star Wars FrontEnd Challenge
 
 This project is a front-end implementation of the Star Wars API using [this Adobe XD mockup](https://xd.adobe.com/view/07678de3-f5c3-4ddb-4f34-375d0d8b8a8b-7156/).
 
